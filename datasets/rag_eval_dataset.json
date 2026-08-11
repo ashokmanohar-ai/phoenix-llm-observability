@@ -1,0 +1,138 @@
+[
+  {
+    "id": "rag-001-correct",
+    "category": "correct_answer",
+    "query": "What is the refund window?",
+    "retrieved_context": ["Customers may request a refund within 30 calendar days of delivery."],
+    "generated_answer": "The refund window is 30 calendar days after delivery.",
+    "reference_answer": "Customers may request a refund within 30 calendar days of delivery.",
+    "expected_behavior": "high_all_quality"
+  },
+  {
+    "id": "rag-002-hallucinated",
+    "category": "hallucinated_answer",
+    "query": "What is the refund window?",
+    "retrieved_context": ["Customers may request a refund within 30 calendar days of delivery."],
+    "generated_answer": "Refunds are available for 60 days and include used items.",
+    "reference_answer": "Customers may request a refund within 30 calendar days of delivery.",
+    "expected_behavior": "low_faithfulness"
+  },
+  {
+    "id": "rag-003-irrelevant-context",
+    "category": "irrelevant_context",
+    "query": "How do I cancel my subscription?",
+    "retrieved_context": ["Password-reset emails expire after 15 minutes."],
+    "generated_answer": "Use the Forgot password link and act within 15 minutes.",
+    "reference_answer": "Cancel from Settings > Billing > Cancel subscription.",
+    "expected_behavior": "low_retrieval_relevance"
+  },
+  {
+    "id": "rag-004-missing-evidence",
+    "category": "missing_retrieval_evidence",
+    "query": "Does the warranty cover accidental damage?",
+    "retrieved_context": [],
+    "generated_answer": "The warranty covers accidental damage for two years.",
+    "reference_answer": "Accidental damage is excluded from the one-year limited warranty.",
+    "expected_behavior": "no_context_and_unfaithful"
+  },
+  {
+    "id": "rag-005-partial",
+    "category": "partially_correct",
+    "query": "How long is the warranty and what is excluded?",
+    "retrieved_context": ["Hardware has a one-year warranty. Accidental damage, loss, misuse, and wear are excluded."],
+    "generated_answer": "The warranty lasts one year.",
+    "reference_answer": "The warranty lasts one year and excludes accidental damage, loss, misuse, and normal wear.",
+    "expected_behavior": "partial_correctness"
+  },
+  {
+    "id": "rag-006-relevant-unfaithful",
+    "category": "relevant_but_unfaithful",
+    "query": "When is live support available?",
+    "retrieved_context": ["Live support is available Monday through Friday, 09:00 to 18:00 UTC."],
+    "generated_answer": "Live support is available every day from 08:00 to 20:00 UTC.",
+    "reference_answer": "Live support is available Monday through Friday, 09:00 to 18:00 UTC.",
+    "expected_behavior": "high_answer_relevance_low_faithfulness"
+  },
+  {
+    "id": "rag-007-faithful-irrelevant",
+    "category": "faithful_but_irrelevant",
+    "query": "How long does standard shipping take?",
+    "retrieved_context": ["Tracking is emailed after dispatch."],
+    "generated_answer": "Tracking is emailed after dispatch.",
+    "reference_answer": "Standard shipping normally takes 3 to 5 business days after dispatch.",
+    "expected_behavior": "high_faithfulness_low_answer_relevance"
+  },
+  {
+    "id": "rag-008-no-answer",
+    "category": "no_answer",
+    "query": "Do you ship to the Moon?",
+    "retrieved_context": ["Standard shipping normally takes 3 to 5 business days after dispatch."],
+    "generated_answer": "I don't have enough information in the knowledge base to answer that.",
+    "reference_answer": "The knowledge base does not specify shipping to the Moon.",
+    "expected_behavior": "safe_refusal"
+  },
+  {
+    "id": "rag-009-noisy-retrieval",
+    "category": "noisy_retrieval",
+    "query": "How long are support chat transcripts retained?",
+    "retrieved_context": ["Support chat transcripts are retained for 90 days.", "Express shipping takes 1 to 2 days.", "Password links expire in 15 minutes."],
+    "generated_answer": "Support chat transcripts are retained for 90 days.",
+    "reference_answer": "Support chat transcripts are retained for 90 days unless a legal hold applies.",
+    "expected_behavior": "correct_with_retrieval_noise"
+  },
+  {
+    "id": "rag-010-multi-doc-correct",
+    "category": "multi_document_correct",
+    "query": "Can I cancel and automatically receive a refund?",
+    "retrieved_context": ["A subscription can be cancelled from Settings > Billing.", "Cancellation does not automatically issue a refund.", "Refunds may be requested within 30 days of delivery."],
+    "generated_answer": "You can cancel in Settings > Billing, but cancellation does not automatically create a refund request.",
+    "reference_answer": "Cancel in Settings > Billing; cancellation does not automatically issue a refund.",
+    "expected_behavior": "correct_multi_document_synthesis"
+  },
+  {
+    "id": "rag-011-multi-doc-incorrect",
+    "category": "multi_document_incorrect",
+    "query": "Can I cancel and automatically receive a refund?",
+    "retrieved_context": ["A subscription can be cancelled from Settings > Billing.", "Cancellation does not automatically issue a refund."],
+    "generated_answer": "Cancelling in Billing automatically returns the most recent payment.",
+    "reference_answer": "Cancellation does not automatically issue a refund.",
+    "expected_behavior": "synthesis_failure"
+  },
+  {
+    "id": "rag-012-long-context",
+    "category": "long_context",
+    "query": "When does a password reset link expire?",
+    "retrieved_context": ["Refunds are returned in 5 to 7 days. Password-reset emails expire after 15 minutes. Support is open weekdays. Standard shipping takes 3 to 5 days. Warranty lasts one year."],
+    "generated_answer": "The password-reset link expires after 15 minutes.",
+    "reference_answer": "Password-reset emails expire after 15 minutes.",
+    "expected_behavior": "correct_but_excessive_context"
+  },
+  {
+    "id": "rag-013-ambiguous",
+    "category": "ambiguous_question",
+    "query": "How long does it last?",
+    "retrieved_context": ["The limited warranty lasts one year.", "Password links expire after 15 minutes."],
+    "generated_answer": "Could you clarify whether you mean the warranty or password-reset link?",
+    "reference_answer": "Ask the user to clarify what 'it' refers to.",
+    "expected_behavior": "clarification"
+  },
+  {
+    "id": "rag-014-unsupported-assumption",
+    "category": "unsupported_user_assumption",
+    "query": "Why is your refund period 60 days?",
+    "retrieved_context": ["Customers may request a refund within 30 calendar days of delivery."],
+    "generated_answer": "The documented refund period is 30 days, not 60 days.",
+    "reference_answer": "Correct the assumption: the documented refund period is 30 days.",
+    "expected_behavior": "correct_user_assumption"
+  },
+  {
+    "id": "rag-015-edge-legal-hold",
+    "category": "edge_case",
+    "query": "Are chat transcripts always deleted after 90 days?",
+    "retrieved_context": ["Chat transcripts are retained for 90 days and then deleted, unless a legal hold requires longer retention."],
+    "generated_answer": "Normally they are deleted after 90 days, but a legal hold can require longer retention.",
+    "reference_answer": "They are normally deleted after 90 days unless a legal hold requires longer retention.",
+    "expected_behavior": "correct_exception_handling"
+  }
+]
+

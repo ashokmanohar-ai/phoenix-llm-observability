@@ -1,0 +1,17 @@
+services:
+  phoenix:
+    image: arizephoenix/phoenix:version-19.21.0
+    ports:
+      - "6006:6006" # Phoenix UI, REST API, and OTLP/HTTP collector
+      - "4317:4317" # OTLP/gRPC collector
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+      PHOENIX_DEFAULT_RETENTION_POLICY_DAYS: "30"
+      PHOENIX_ALLOW_EXTERNAL_RESOURCES: "false"
+    volumes:
+      - phoenix_data:/mnt/data
+    restart: unless-stopped
+
+volumes:
+  phoenix_data:
+

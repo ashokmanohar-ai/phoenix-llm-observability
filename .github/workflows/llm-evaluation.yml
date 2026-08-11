@@ -1,0 +1,103 @@
+name: LLM and RAG quality gate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_live_azure_evaluation:
+        description: Run the Azure OpenAI judge suite using GitHub Secrets
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phoenix-eval-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deterministic-quality-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project and development tools
+        run: python -m pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check .
+      - name: Unit tests
+        run: pytest --cov=phoenix_observability --cov-report=term-missing --cov-report=xml
+      - name: Offline regression smoke gate
+        env:
+          MIN_FAITHFULNESS: "0.80"
+          MIN_ANSWER_RELEVANCE: "0.75"
+          MIN_RETRIEVAL_RELEVANCE: "0.75"
+          MIN_CORRECTNESS: "0.75"
+        run: >-
+          python scripts/run_evaluation.py
+          --dataset datasets/regression_dataset.json
+          --mode offline
+          --output-dir reports
+          --enforce
+      - name: Upload evaluation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phoenix-evaluation-reports
+          path: |
+            reports/evaluation_results.json
+            reports/evaluation_results.csv
+            coverage.xml
+
+  live-azure-quality-gate:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_live_azure_evaluation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      phoenix:
+        image: arizephoenix/phoenix:version-19.21.0
+        ports:
+          - 6006:6006
+    env:
+      AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+      AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+      AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
+      AZURE_OPENAI_CHAT_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_CHAT_DEPLOYMENT }}
+      AZURE_OPENAI_EMBEDDING_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_EMBEDDING_DEPLOYMENT }}
+      AZURE_OPENAI_EVALUATOR_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_EVALUATOR_DEPLOYMENT }}
+      PHOENIX_ENDPOINT: http://localhost:6006
+      PHOENIX_COLLECTOR_ENDPOINT: http://localhost:6006
+      PHOENIX_PROJECT_NAME: phoenix-ci-${{ github.run_id }}
+      PHOENIX_TRACE_CONTENT: "false"
+      MIN_FAITHFULNESS: "0.80"
+      MIN_ANSWER_RELEVANCE: "0.75"
+      MIN_RETRIEVAL_RELEVANCE: "0.75"
+      MIN_CORRECTNESS: "0.75"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -e ".[dev]"
+      - name: Run Phoenix Evals with Azure judge
+        run: >-
+          python scripts/run_evaluation.py
+          --dataset datasets/regression_dataset.json
+          --mode azure
+          --output-dir reports-live
+          --enforce
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phoenix-live-azure-evaluation-reports
+          path: reports-live/
+

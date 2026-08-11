@@ -1,0 +1,48 @@
+[
+  {
+    "id": "reg-001-refund-window",
+    "category": "production_regression",
+    "query": "Can I get a refund after 45 days?",
+    "retrieved_context": ["Customers may request a refund within 30 calendar days of delivery."],
+    "generated_answer": "No. The documented refund window is 30 calendar days after delivery.",
+    "reference_answer": "Refunds may be requested within 30 calendar days of delivery.",
+    "expected_behavior": "corrected_after_bad_60_day_claim"
+  },
+  {
+    "id": "reg-002-cancellation",
+    "category": "production_regression",
+    "query": "Where do I cancel my subscription?",
+    "retrieved_context": ["A subscription can be cancelled from Settings > Billing > Cancel subscription."],
+    "generated_answer": "Cancel it from Settings > Billing > Cancel subscription.",
+    "reference_answer": "Cancel from Settings > Billing > Cancel subscription.",
+    "expected_behavior": "correct"
+  },
+  {
+    "id": "reg-003-reset-expiry",
+    "category": "production_regression",
+    "query": "When does my password reset link expire?",
+    "retrieved_context": ["Password-reset emails expire after 15 minutes."],
+    "generated_answer": "Password-reset emails expire after 15 minutes.",
+    "reference_answer": "Password-reset emails expire after 15 minutes.",
+    "expected_behavior": "correct"
+  },
+  {
+    "id": "reg-004-warranty",
+    "category": "production_regression",
+    "query": "Does the one-year warranty cover accidental damage?",
+    "retrieved_context": ["The one-year warranty excludes accidental damage, loss, misuse, and normal wear."],
+    "generated_answer": "No. The one-year warranty excludes accidental damage.",
+    "reference_answer": "Accidental damage is excluded from the one-year warranty.",
+    "expected_behavior": "correct"
+  },
+  {
+    "id": "reg-005-data-retention",
+    "category": "production_regression",
+    "query": "How long are support chat transcripts retained?",
+    "retrieved_context": ["Support chat transcripts are retained for 90 days unless a legal hold applies."],
+    "generated_answer": "They are retained for 90 days unless a legal hold requires longer retention.",
+    "reference_answer": "Support chat transcripts are retained for 90 days unless a legal hold applies.",
+    "expected_behavior": "correct"
+  }
+]
+

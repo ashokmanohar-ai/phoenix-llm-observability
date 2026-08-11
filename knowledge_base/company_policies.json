@@ -1,0 +1,45 @@
+[
+  {
+    "id": "policy-refund-001",
+    "title": "Refund policy",
+    "text": "Customers may request a refund within 30 calendar days of delivery. The item must be unused and in its original packaging. Approved refunds are returned to the original payment method within 5 to 7 business days.",
+    "metadata": {"category": "refunds", "version": "2026.1", "fictional": true}
+  },
+  {
+    "id": "policy-cancel-001",
+    "title": "Subscription cancellation",
+    "text": "A subscription can be cancelled from Settings > Billing > Cancel subscription. Access continues until the end of the current paid billing period. Cancellation does not automatically issue a refund.",
+    "metadata": {"category": "billing", "version": "2026.1", "fictional": true}
+  },
+  {
+    "id": "policy-password-001",
+    "title": "Password reset",
+    "text": "Use the Forgot password link on the sign-in page. Password-reset emails expire after 15 minutes. Support staff will never ask for a password or reset code.",
+    "metadata": {"category": "account", "version": "2026.1", "fictional": true}
+  },
+  {
+    "id": "policy-warranty-001",
+    "title": "Product warranty",
+    "text": "ExampleCo hardware has a limited one-year warranty covering manufacturing defects. Accidental damage, loss, misuse, and normal wear are excluded.",
+    "metadata": {"category": "warranty", "version": "2026.1", "fictional": true}
+  },
+  {
+    "id": "policy-support-001",
+    "title": "Support hours",
+    "text": "Live support is available Monday through Friday, 09:00 to 18:00 UTC, excluding published company holidays. Self-service help is available at all times.",
+    "metadata": {"category": "support", "version": "2026.1", "fictional": true}
+  },
+  {
+    "id": "policy-shipping-001",
+    "title": "Shipping",
+    "text": "Standard shipping normally takes 3 to 5 business days after dispatch. Express shipping normally takes 1 to 2 business days. Tracking is emailed after dispatch.",
+    "metadata": {"category": "shipping", "version": "2026.1", "fictional": true}
+  },
+  {
+    "id": "policy-retention-001",
+    "title": "Data retention",
+    "text": "Support chat transcripts are retained for 90 days for quality review and then deleted, unless a legal hold requires longer retention. Customers may request access or deletion through the privacy form.",
+    "metadata": {"category": "privacy", "version": "2026.1", "fictional": true}
+  }
+]
+

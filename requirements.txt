@@ -1,0 +1,9 @@
+arize-phoenix==19.21.0
+arize-phoenix-client==3.0.0
+arize-phoenix-evals==3.4.0
+arize-phoenix-otel==0.17.1
+openai==2.53.0
+openinference-instrumentation-openai==0.1.54
+openinference-semantic-conventions==0.1.32
+python-dotenv==1.1.1
+

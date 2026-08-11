@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phoenix-llm-observability"
+version = "1.0.0"
+description = "Production-oriented Arize Phoenix tracing, evaluation, experiments, and troubleshooting starter for Azure OpenAI LLM and RAG applications."
+readme = "README.md"
+requires-python = ">=3.10,<3.15"
+license = { text = "MIT" }
+authors = [{ name = "Ashok Kumar Manohar" }]
+dependencies = [
+  "arize-phoenix-client==3.0.0",
+  "arize-phoenix-evals==3.4.0",
+  "arize-phoenix-otel==0.17.1",
+  "openai==2.53.0",
+  "openinference-instrumentation-openai==0.1.54",
+  "openinference-semantic-conventions==0.1.32",
+  "python-dotenv==1.1.1",
+]
+
+[project.optional-dependencies]
+server = ["arize-phoenix==19.21.0"]
+dev = [
+  "pytest==8.4.2",
+  "pytest-cov==6.3.0",
+  "ruff==0.12.8",
+]
+
+[project.urls]
+Homepage = "https://github.com/ashokmanohar-ai/phoenix-llm-observability"
+Documentation = "https://github.com/ashokmanohar-ai/phoenix-llm-observability/tree/main/docs"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+markers = [
+  "integration: requires a running Phoenix server and/or Azure OpenAI",
+]
+
+[tool.coverage.run]
+source = ["phoenix_observability"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 80
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
