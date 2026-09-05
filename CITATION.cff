@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "Please cite this work using the metadata below."
+title: "AI Observability for Quality Engineers: Tracing LLMs, RAG Pipelines and AI Agents from Prompt to Production"
+type: article
+authors:
+  - family-names: Manohar
+    given-names: Ashok Kumar
+version: 1.0.0
+date-released: 2026-09-05
+url: "https://github.com/ashokmanohar-ai/phoenix-llm-observability/blob/main/WHITEPAPER.md"
+repository-code: "https://github.com/ashokmanohar-ai/phoenix-llm-observability"
+license: MIT
+keywords:
+  - AI Observability
+  - Quality Engineering
+  - LLM Observability
+  - RAG Observability
+  - Agent Observability
+  - OpenTelemetry
+  - OpenInference
+  - Arize Phoenix
+  - LLM Evaluation
+  - RAG Evaluation
+  - AI Agent Evaluation
+  - Root Cause Analysis
+  - CI/CD
+  - Generative AI
+  - AI Quality Engineering
+abstract: >-
+  An evidence-driven Quality Engineering framework for tracing, evaluating and
+  diagnosing LLM, RAG and agentic AI systems from prompt to production. The
+  work introduces a Trace-Evaluate-Diagnose-Experiment-Regress model connecting
+  runtime telemetry, retrieval evidence, tool trajectories, quality evaluations,
+  datasets, experiments, privacy controls, CI/CD quality gates and production
+  feedback into durable regression intelligence.
